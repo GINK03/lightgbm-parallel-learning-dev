@@ -13,6 +13,16 @@ Ansibleという自動化ソフトウェアで、ノードにデータセット�
 ```console
 $ sudo apt install ansible
 ```
+ホストにsshpassを追加する
+```console
+$ sudo apt install sshpass
+```
+password認証がデフォルトでは通らないので、このようにするので、問題ない
+/etc/ansible/ansible.cfgにここの編集を付け加える
+```console
+[ssh_connection]
+ssh_args = -o ControlMaster=auto -o ControlPersist=60s -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null
+```
 
 ### Setting Up Users
 ユーザをホストと、クラスターノードの両方に作る
