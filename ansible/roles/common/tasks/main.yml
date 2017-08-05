@@ -1,0 +1,28 @@
+- name: Git Clone
+  sudo: no
+  git:
+    repo=https://github.com/GINK03/lightgbm-parallel-learning-dev.git
+    dest=/home/ansible/lightgbm-parallel-learning-dev
+    version=master
+    accept_hostkey=yes
+
+- name: refresh data and example to latest
+  shell: cd /home/ansible/lightgbm-parallel-learning-dev && git pull
+
+- name: Git Clone LightGBM
+  sudo: no
+  git:
+    repo=https://github.com/Microsoft/LightGBM.git
+    dest=/home/ansible/lightgbm
+    version=master
+    accept_hostkey=yes
+
+- name: create directory
+  file: path=/home/ansible/lightgbm/build state=directory owner=ansible
+
+- name: run cmake and make
+  shell: cd /home/ansible/lightgbm/build && cmake .. && make -j3
+
+- name: train parallel 
+  shell: cd /home/ansible/lightgbm-parallel-learning-dev && ../lightgbm/lightgbm config=train.conf
+  

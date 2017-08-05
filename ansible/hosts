@@ -1,0 +1,12 @@
+[controler]
+192.168.15.30
+
+[clusters]
+192.168.15.29
+192.168.15.28
+
+[all:vars]
+ansible_ssh_port=22
+ansible_ssh_user=ansible
+ansible_ssh_pass=password
+ansible_sudo_pass=password
